@@ -1,0 +1,31 @@
+#############################################################################
+# Configuration
+#############################################################################
+plugin.tx_copyrightguardian {
+    view {
+        templateRootPath = {$plugin.tx_copyrightguardian.view.templateRootPath}
+        partialRootPath = {$plugin.tx_copyrightguardian.view.partialRootPath}
+        layoutRootPath = {$plugin.tx_copyrightguardian.view.layoutRootPath}
+    }
+
+    persistence {
+        storagePid = {$plugin.tx_copyrightguardian.persistence.storagePid}
+    }
+
+    features {
+        # uncomment the following line to enable the new Property Mapper.
+        # rewrittenPropertyMapper = 1
+    }
+
+    #===============================================================
+    # Settings
+    #===============================================================
+    settings {
+        resources {
+            includeFieldsList = {$plugin.tx_copyrightguardian.settings.resources.includeFieldsList}
+            includeFieldsListNews = {$plugin.tx_copyrightguardian.settings.resources.includeFieldsListNews}
+            listPid = {$plugin.tx_copyrightguardian.settings.resources.listPid}
+        }
+    }
+}
+

@@ -1,0 +1,28 @@
+plugin.tx_copyrightguardian {
+	view {
+		# cat=plugin.tx_copyrightguardian/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:copyright_guardian/Resources/Private/Templates/
+
+		# cat=plugin.tx_copyrightguardian/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:copyright_guardian/Resources/Private/Partials/
+
+		# cat=plugin.tx_copyrightguardian/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:copyright_guardian/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_copyrightguardian//a; type=string; label=Default storage PID
+		storagePid =
+	}
+
+	settings {
+
+        resources {
+            # cat=plugin.tx_copyrightguardian//a; type=string; label=Comma-separated list of fields to look up when searching for images
+            includeFieldsList = pages.media, tt_content.image, tt_content.assets
+
+            # cat=plugin.tx_copyrightguardian//a; type=string; label=Comma-separated list of fields to look up when searching for images
+            includeFieldsListNews = tx_news_domain_model_news.fal_media
+        }
+	}
+}
+

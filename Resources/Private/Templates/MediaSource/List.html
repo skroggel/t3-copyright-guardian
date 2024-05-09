@@ -1,0 +1,15 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true">
+
+	<f:layout name="Default" />
+
+	<f:section name="main">
+		<f:if condition="{mediaSources}">
+            <ul class="media-source-list">
+                <f:for each="{mediaSources}" as="mediaSource">
+                    <f:render partial="MediaSource" arguments="{mediaSource: mediaSource}"  />
+                </f:for>
+            </ul>
+		</f:if>
+	</f:section>
+</html>
