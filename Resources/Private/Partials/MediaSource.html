@@ -1,0 +1,29 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true">
+
+    <f:if condition="{mediaSource}">
+        <f:if condition="{mediaSource.metaCreator} || {mediaSource.mediaSourceName}">
+            <li class="media-source-list-item">
+                <f:comment><f:link.typolink parameter="{mediaSource.refPid}">{metaSourceName}</f:link.typolink>:</f:comment>
+                &copy; {mediaSource.metaCreator}
+                <f:if condition="{mediaSource.metaCreator} && {mediaSource.mediaSourceName}">/</f:if>
+                <f:link.typolink parameter="{mediaSource.mediaSourceUrl}">{mediaSource.mediaSourceName}</f:link.typolink>
+                
+                <f:if condition="{mediaSource.metaTitle} || {mediaSource.refTitle}">
+                    <f:then>
+                        &ndash;
+                        <f:if condition="{mediaSource.refTitle}">
+                            <f:then>{mediaSource.refTitle}</f:then>
+                            <f:else>{mediaSource.metaTitle}</f:else>
+                        </f:if>
+                        ({mediaSource.fileName})
+                    </f:then>
+                    <f:else>
+                        &ndash;
+                        {mediaSource.fileName}
+                    </f:else>
+                </f:if>
+            </li>
+        </f:if>
+    </f:if>
+</html>
