@@ -319,6 +319,20 @@ class MediaSourceRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                         'ref.tx_copyrightguardian_images_no_copyright',
                         $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)
                     ),
+                    $queryBuilder->expr()->eq(
+                        'ref.tx_copyrightguardian_images_no_copyright',
+                        $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)
+                    ),
+                    $queryBuilder->expr()->or(
+                        $queryBuilder->expr()->neq(
+                            'meta.tx_copyrightguardian_creator',
+                            $queryBuilder->createNamedParameter('', Connection::PARAM_STR)
+                        ),
+                        $queryBuilder->expr()->gt(
+                            'meta.tx_copyrightguardian_source',
+                            $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)
+                        ),
+                    ),
                     $tableFieldExpression,
                 )
             )->innerJoin(
