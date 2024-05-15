@@ -16,9 +16,7 @@ namespace Madj2k\CopyrightGuardian\Resource;
  */
 
 use Madj2k\CopyrightGuardian\Domain\Repository\MediaSourceRepository;
-use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * FileReference
@@ -34,20 +32,17 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
     /**
      * Returns the title text to this image
      *
-     * @todo Possibly move this to the image domain object instead
-     *
      * @return string
      */
     public function getTitle()
     {
-
         $copyrightInfo = [];
 
         if (
             ($this->hasProperty('tx_copyrightguardian_creator'))
             && ($creator = $this->getProperty('tx_copyrightguardian_creator'))
         ){
-            $copyrightInfo[] = $this->getProperty('tx_copyrightguardian_creator');
+            $copyrightInfo[] = $creator;
         }
 
         if (
