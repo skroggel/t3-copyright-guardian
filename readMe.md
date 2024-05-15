@@ -36,14 +36,24 @@ lib.siteDefault {
         switchableControllerActions {
         // Again: Controller-Name and Action
             MediaSource {
-                1 = importParentPage
+                1 = list
             }
         }
 
         view =< plugin.copyrightguardian.view
         persistence =< plugin.copyrightguardian.persistence
-        settings =< plugin.copyrightguardiansettings
+        settings =< plugin.copyrightguardian.settings
     }
 }
 
+```
+
+# Migration from core_extended
+The functionality of this extension was a part of EXT:core_extended before.
+It has been moved in order to have a cleaner separation of functionality. The code has also been refactored and improved.
+
+To migrate the relevant database records from EXT:core_extended to this extension execute the following queries in your database:
+```
+INSERT INTO tx_copyrightguardian_domain_model_mediasource (uid, pid, tstamp, crdate, cruser_id, deleted, hidden, starttime, endtime, sys_language_uid, l10n_parent, l10n_state, l10n_diffsource, t3ver_oid, t3ver_wsid, t3ver_state, t3ver_stage, t3ver_count, t3ver_tstamp, t3ver_move_id, name, url, internal) SELECT uid, pid, tstamp, crdate, cruser_id, deleted, hidden, starttime, endtime, sys_language_uid, l10n_parent, l10n_state, l10n_diffsource, t3ver_oid, t3ver_wsid, t3ver_state, t3ver_stage, t3ver_count, t3ver_tstamp, t3ver_move_id, name, url, internal FROM tx_coreextended_domain_model_mediasources;
+UPDATE sys_file_metadata SET tx_copyrightguardian_source = tx_coreextended_source, tx_copyrightguardian_creator = tx_coreextended_publisher WHERE 1 = 1;
 ```
