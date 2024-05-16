@@ -5,7 +5,7 @@
 
 	<f:section name="main">
 		<f:if condition="{mediaSources}">
-            <ul class="media-source-list">
+            <ul class="media-source-list" role="contentinfo">
                 <f:for each="{mediaSources}" as="mediaSource">
                     <f:render partial="MediaSource" arguments="{mediaSource: mediaSource}"  />
                 </f:for>
