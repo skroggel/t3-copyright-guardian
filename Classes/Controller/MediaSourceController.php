@@ -111,12 +111,19 @@ class MediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $this->settings['resources']['includeFieldsList'] ?? ''
         );
 
-        /** @todo check with method_exists can be removed when support for v10 is dropped */
-        $newsUid = (
-            (method_exists($this->request, 'getQueryParams'))
-                ? intval($this->request->getQueryParams()['tx_news_pi1']['news'])
-                : GeneralUtility::_GP('tx_news_pi1')['news']
-        );
+        /** @todo check can be removed when support for v10 is dropped */
+        $newsUid = 0;
+        if (method_exists($this->request, 'getQueryParams')) {
+            $paramArray = $this->request->getQueryParams();
+            if (isset($paramArray['tx_news_pi1']['news'])) {
+                $newsUid = $paramArray['tx_news_pi1']['news'];
+            }
+        } else {
+            $paramArray = GeneralUtility::_GP('tx_news_pi1');
+            if (isset($paramArray['news'])) {
+                $newsUid = $paramArray['news'];
+            }
+        }
 
         // add images of current news item if any
         if ($newsUid) {
