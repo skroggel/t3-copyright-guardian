@@ -94,7 +94,7 @@ class MediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function listAction(): ResponseInterface
     {
         /** @var int $pid */
-        $pid = $GLOBALS['TSFE']->id;
+        $pid = intval($GLOBALS['TSFE']->id);
 
         /** @var \TYPO3\CMS\Core\Site\Entity\SiteLanguage $language */
         /** @todo check with method_exists can be removed when support for v10 is dropped */
@@ -116,12 +116,12 @@ class MediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         if (method_exists($this->request, 'getQueryParams')) {
             $paramArray = $this->request->getQueryParams();
             if (isset($paramArray['tx_news_pi1']['news'])) {
-                $newsUid = $paramArray['tx_news_pi1']['news'];
+                $newsUid = intval($paramArray['tx_news_pi1']['news']);
             }
         } else {
             $paramArray = GeneralUtility::_GP('tx_news_pi1');
             if (isset($paramArray['news'])) {
-                $newsUid = $paramArray['news'];
+                $newsUid = intval($paramArray['news']);
             }
         }
 
