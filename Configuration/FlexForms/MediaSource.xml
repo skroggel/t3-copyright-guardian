@@ -18,10 +18,6 @@
 										<numIndex index="0">LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:flexform.mediasource.function.select.I.list</numIndex>
 										<numIndex index="1">MediaSource->list</numIndex>
 									</numIndex>
-									<numIndex index="1">
-										<numIndex index="0">LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:flexform.mediasource.function.select.I.listPage</numIndex>
-										<numIndex index="1">MediaSource->listPage</numIndex>
-									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
