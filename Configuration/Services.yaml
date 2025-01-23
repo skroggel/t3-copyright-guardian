@@ -6,3 +6,9 @@ services:
 
   Madj2k\CopyrightGuardian\:
     resource: '../Classes/*'
+
+  Madj2k\CopyrightGuardian\Command\CheckFileMetadataCommand:
+    tags:
+      - name: 'console.command'
+        command: 'copyright_guardian:checkFileMetadata'
+        schedulable: true
