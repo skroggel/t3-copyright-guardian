@@ -17,6 +17,7 @@ namespace Madj2k\CopyrightGuardian\Command;
 use Madj2k\CopyrightGuardian\Domain\Repository\FileMetadataRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -51,7 +52,14 @@ class CheckFileMetadataCommand extends Command
      */
     protected function configure(): void
     {
-        $this->setDescription('Gets all sys_file-Datensätze, which are missing at least one specific attribute in sys_file_metadata.');
+        $this->setDescription('Gets all sys_file-Datensätze, which are missing at least one specific attribute in sys_file_metadata.')
+            ->addOption(
+                'rootPageUid',
+                'r',
+                InputOption::VALUE_REQUIRED,
+                'Defines the root page as search scope.',
+                1
+            );
     }
 
 
@@ -67,8 +75,12 @@ class CheckFileMetadataCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+        $io->title($this->getDescription());
+        $io->newLine();
 
-        $files = $this->fileMetadataRepository->findFilesWithIncompleteMetadata();
+        $rootPageUid = (int) $input->getOption('rootPageUid');
+
+        $files = $this->fileMetadataRepository->findFilesWithIncompleteMetadataInRootline($rootPageUid);
 
         //  @todo: Übersetzung / Translation
         if (empty($files)) {
