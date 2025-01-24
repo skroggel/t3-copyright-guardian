@@ -9,6 +9,12 @@
   			<trans-unit id="templates.mediaSource.list.title">
                 <source>Media sources and copyright hints</source>
             </trans-unit>
+            <!-- =================================================== -->
+            <!-- Templates/Email/IncompleteFiles    			         -->
+            <!-- =================================================== -->
+  			<trans-unit id="mailService.backendUser.subject.incompleteFiles">
+                <source>Incomplete media files</source>
+            </trans-unit>
         </body>
 	</file>
 </xliff>

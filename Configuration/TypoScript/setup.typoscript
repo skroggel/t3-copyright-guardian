@@ -3,9 +3,18 @@
 #############################################################################
 plugin.tx_copyrightguardian {
     view {
-        templateRootPath = {$plugin.tx_copyrightguardian.view.templateRootPath}
-        partialRootPath = {$plugin.tx_copyrightguardian.view.partialRootPath}
-        layoutRootPath = {$plugin.tx_copyrightguardian.view.layoutRootPath}
+        layoutRootPaths {
+            0 = EXT:copyright_guardian/Resources/Private/Layouts/
+            1 = {$plugin.tx_copyrightguardian.view.layoutRootPath}
+        }
+        templateRootPaths {
+            0 = EXT:copyright_guardian/Resources/Private/Templates/
+            1 = {$plugin.tx_copyrightguardian.view.templateRootPath}
+        }
+        partialRootPaths {
+            0 = EXT:copyright_guardian/Resources/Private/Partials/
+            1 = {$plugin.tx_copyrightguardian.view.partialRootPath}
+        }
     }
 
     persistence {
@@ -29,3 +38,5 @@ plugin.tx_copyrightguardian {
     }
 }
 
+// for cronjob
+module.tx_copyrightguardian < plugin.tx_copyrightguardian

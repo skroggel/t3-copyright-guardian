@@ -15,6 +15,8 @@ namespace Madj2k\CopyrightGuardian\Command;
  */
 
 use Madj2k\CopyrightGuardian\Domain\Repository\FileMetadataRepository;
+use Madj2k\CopyrightGuardian\Service\MailService;
+use Madj2k\CoreExtended\Utility\GeneralUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -59,6 +61,13 @@ class CheckFileMetadataCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Defines the root page as search scope.',
                 1
+            )
+            ->addOption(
+                'email',
+                'e',
+                InputOption::VALUE_REQUIRED,
+                'Defines the email the report should be sent to.',
+                ''
             );
     }
 
@@ -100,6 +109,13 @@ class CheckFileMetadataCommand extends Command
                     ];
                 }, $files)
             );
+
+            if ($email = $input->getOption('email')) {
+                // send mails
+                /** @var MailService $mailService */
+                $mailService = GeneralUtility::makeInstance(MailService::class);
+                $mailService->incompleteFilesMail($email, $files);
+            }
 
             $io->success(sprintf('%d Dateien gefunden.', count($files)));
         }

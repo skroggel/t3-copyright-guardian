@@ -10,6 +10,13 @@
                 <source>Media sources and copyright hints</source>
                 <target>Bildquellen und Copyright-Hinweise</target>
             </trans-unit>
+			<!-- =================================================== -->
+			<!-- Templates/Email/IncompleteFiles    			         -->
+			<!-- =================================================== -->
+			<trans-unit id="mailService.backendUser.subject.incompleteFiles">
+				<source>Incomplete media files</source>
+				<target>Unvollständige Mediendateien</target>
+			</trans-unit>
         </body>
 	</file>
 </xliff>
