@@ -2,7 +2,7 @@
     "name": "madj2k/t3-copyright-guardian",
     "type": "typo3-cms-extension",
     "description": "Manages the copyright details of images and other media and offers a convienient way of displaying these automatically and directly on the page on which the media is used. In addition, a list of all media used and the associated copyright information can be output",
-    "homepage": "https://www.kroggel.media",
+    "homepage": "https://www.steffenkroggel.de",
     "license": ["GPL-2.0+"],
     "keywords": ["TYPO3 CMS", "Copyright", "Images", "Media", "Copyright-Manager"],
     "support": {
