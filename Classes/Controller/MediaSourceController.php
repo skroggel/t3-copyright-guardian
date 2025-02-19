@@ -38,14 +38,14 @@ class MediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @var \Psr\Http\Message\ResponseFactoryInterface
      * @todo can be removed when support for v10 is dropped
      */
-    protected $responseFactory;
+    protected ResponseFactoryInterface $responseFactory;
 
 
     /**
      * @var \Psr\Http\Message\StreamFactoryInterface
      * @todo can be removed when support for v10 is dropped
      */
-    protected $streamFactory;
+    protected StreamFactoryInterface $streamFactory;
 
 
     /**
