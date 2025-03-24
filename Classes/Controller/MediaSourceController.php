@@ -30,7 +30,9 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
  * @copyright Steffen Kroggel
  * @package Madj2k_CopyrightGuardian
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * @todo AbstractMediaSourceController can be replaced \TYPO3\CMS\Extbase\Mvc\Controller\ActionController when support for v10 is dropped
  */
+<<<<<<< Updated upstream
 class MediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 
@@ -47,6 +49,10 @@ class MediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     protected StreamFactoryInterface $streamFactory;
 
+=======
+class MediaSourceController extends AbstractMediaSourceController
+{
+>>>>>>> Stashed changes
 
     /**
      * @var \Madj2k\CopyrightGuardian\Domain\Repository\MediaSourceRepository|null
