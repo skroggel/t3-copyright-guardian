@@ -15,11 +15,8 @@ namespace Madj2k\CopyrightGuardian\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Madj2k\CopyrightGuardian\Domain\Repository\MediaSourceRepository;
 use Madj2k\CoreExtended\Utility\GeneralUtility;
-use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamFactoryInterface;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
