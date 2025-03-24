@@ -4,8 +4,8 @@
 	<f:layout name="Default" />
 
 	<f:section name="main">
-        <section aria-labelledby="media-sources-list-title">
-            <f:if condition="{mediaSources}">
+        <f:if condition="{mediaSources}">
+            <section aria-labelledby="media-sources-list-title">
                 <div id="media-source-list-title" class="sr-only">
                     <f:translate key="templates.mediaSource.list.title" />
                 </div>
@@ -14,7 +14,7 @@
                         <f:render partial="MediaSource" arguments="{mediaSource: mediaSource}"  />
                     </f:for>
                 </ul>
-            </f:if>
-        </section>
-	</f:section>
+            </section>
+        </f:if>
+    </f:section>
 </html>
