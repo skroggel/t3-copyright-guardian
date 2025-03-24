@@ -73,7 +73,7 @@ if ($version <= 10) {
             $this->streamFactory = $streamFactory;
         }
     }
-} {
+} else {
     abstract class AbstractMediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
     }
