@@ -4,12 +4,17 @@
 	<f:layout name="Default" />
 
 	<f:section name="main">
-		<f:if condition="{mediaSources}">
-            <ul class="media-source-list" role="contentinfo">
-                <f:for each="{mediaSources}" as="mediaSource">
-                    <f:render partial="MediaSource" arguments="{mediaSource: mediaSource}"  />
-                </f:for>
-            </ul>
-		</f:if>
-	</f:section>
+        <f:if condition="{mediaSources}">
+            <section aria-labelledby="media-sources-list-title">
+                <div id="media-source-list-title" class="sr-only">
+                    <f:translate key="templates.mediaSource.list.title" />
+                </div>
+                <ul class="media-source-list">
+                    <f:for each="{mediaSources}" as="mediaSource">
+                        <f:render partial="MediaSource" arguments="{mediaSource: mediaSource}"  />
+                    </f:for>
+                </ul>
+            </section>
+        </f:if>
+    </f:section>
 </html>

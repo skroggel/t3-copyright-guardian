@@ -38,6 +38,7 @@ class MediaSourceRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     protected array $rootline = [];
 
+    
     /**
      * @var \TYPO3\CMS\Core\Database\ConnectionPool|null
      */

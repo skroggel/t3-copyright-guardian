@@ -7,15 +7,32 @@ call_user_func(
         //=================================================================
         // Configure Plugins
         //=================================================================
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            $extKey,
-            'MediaSource',
-            [\Madj2k\CopyrightGuardian\Controller\MediaSourceController::class => 'list'],
+        $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+        $version = $typo3Version->getMajorVersion();
+        /** @todo remove this if support for v10 is dropped */
+        if ($version == 10) {
 
-            // non-cacheable actions
-            [\Madj2k\CopyrightGuardian\Controller\MediaSourceController::class => ''],
-            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-        );
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+                'Madj2k.CopyrightGuardian',
+                'MediaSource',
+                ['MediaSource' => 'list'],
+
+                // non-cacheable actions
+                [],
+            //\TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+            );
+
+        } else {
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+                $extKey,
+                'MediaSource',
+                [\Madj2k\CopyrightGuardian\Controller\MediaSourceController::class => 'list'],
+
+                // non-cacheable actions
+                [\Madj2k\CopyrightGuardian\Controller\MediaSourceController::class => ''],
+                \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+            );
+        }
 
         //=================================================================
         // XClasses
