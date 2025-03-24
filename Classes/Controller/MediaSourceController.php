@@ -32,64 +32,8 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @todo AbstractMediaSourceController can be replaced \TYPO3\CMS\Extbase\Mvc\Controller\ActionController when support for v10 is dropped
  */
-<<<<<<< Updated upstream
-class MediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-{
-
-    /**
-     * @var \Psr\Http\Message\ResponseFactoryInterface
-     * @todo can be removed when support for v10 is dropped
-     */
-    protected ResponseFactoryInterface $responseFactory;
-
-
-    /**
-     * @var \Psr\Http\Message\StreamFactoryInterface
-     * @todo can be removed when support for v10 is dropped
-     */
-    protected StreamFactoryInterface $streamFactory;
-
-=======
 class MediaSourceController extends AbstractMediaSourceController
 {
->>>>>>> Stashed changes
-
-    /**
-     * @var \Madj2k\CopyrightGuardian\Domain\Repository\MediaSourceRepository|null
-     */
-    protected ?MediaSourceRepository $mediaSourceRepository = null;
-
-
-    /**
-     * @param \Madj2k\CopyrightGuardian\Domain\Repository\MediaSourceRepository $mediaSourceRepository
-     */
-    public function injectMediaSourceRepository(MediaSourceRepository $mediaSourceRepository)
-    {
-        $this->mediaSourceRepository = $mediaSourceRepository;
-    }
-
-
-    /**
-     * @param \Psr\Http\Message\ResponseFactoryInterface $responseFactory
-     * @return void
-     * @todo can be removed when support for v10 is dropped
-     */
-    public function injectResponseFactoryForV10(ResponseFactoryInterface $responseFactory)
-    {
-        $this->responseFactory = $responseFactory;
-    }
-
-
-    /**
-     * @param \Psr\Http\Message\StreamFactoryInterface $streamFactory
-     * @return void
-     * @todo can be removed when support for v10 is dropped
-     */
-    public function injectStreamFactoryForV10(StreamFactoryInterface $streamFactory)
-    {
-        $this->streamFactory = $streamFactory;
-    }
-
 
     /**
      * shows resources of current page
