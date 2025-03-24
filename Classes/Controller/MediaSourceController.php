@@ -15,9 +15,10 @@ namespace Madj2k\CopyrightGuardian\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Madj2k\CoreExtended\Utility\GeneralUtility;
+use Madj2k\CopyrightGuardian\Domain\Repository\MediaSourceRepository;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 /**
@@ -31,6 +32,20 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
  */
 class MediaSourceController extends AbstractMediaSourceController
 {
+
+    /**
+     * @var \Madj2k\CopyrightGuardian\Domain\Repository\MediaSourceRepository|null
+     */
+    protected ?MediaSourceRepository $mediaSourceRepository = null;
+
+
+    /**
+     * @param \Madj2k\CopyrightGuardian\Domain\Repository\MediaSourceRepository $mediaSourceRepository
+     */
+    public function injectMediaSourceRepository(MediaSourceRepository $mediaSourceRepository)
+    {
+        $this->mediaSourceRepository = $mediaSourceRepository;
+    }
 
     /**
      * shows resources of current page
