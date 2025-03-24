@@ -31,22 +31,56 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
  * @package Madj2k_CopyrightGuardian
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class MediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+
+$typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+$version = $typo3Version->getMajorVersion();
+if ($version <= 10) {
+    class MediaSourceControllerAbstract extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+    {
+        /**
+         * @var \Psr\Http\Message\ResponseFactoryInterface
+         * @todo can be removed when support for v10 is dropped
+         */
+        protected $responseFactory;
+
+
+        /**
+         * @var \Psr\Http\Message\StreamFactoryInterface
+         * @todo can be removed when support for v10 is dropped
+         */
+        protected $streamFactory;
+
+
+        /**
+         * @param \Psr\Http\Message\ResponseFactoryInterface $responseFactory
+         * @return void
+         * @todo can be removed when support for v10 is dropped
+         */
+        public function injectResponseFactoryForV10(ResponseFactoryInterface $responseFactory)
+        {
+            $this->responseFactory = $responseFactory;
+        }
+
+
+        /**
+         * @param \Psr\Http\Message\StreamFactoryInterface $streamFactory
+         * @return void
+         * @todo can be removed when support for v10 is dropped
+         */
+        public function injectStreamFactoryForV10(StreamFactoryInterface $streamFactory)
+        {
+            $this->streamFactory = $streamFactory;
+        }
+    }
+} {
+    class MediaSourceControllerAbstract extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
+    }
+}
+
+
+class MediaSourceController extends MediaSourceControllerAbstract
 {
-
-    /**
-     * @var \Psr\Http\Message\ResponseFactoryInterface
-     * @todo can be removed when support for v10 is dropped
-     */
-    protected ResponseFactoryInterface $responseFactory;
-
-
-    /**
-     * @var \Psr\Http\Message\StreamFactoryInterface
-     * @todo can be removed when support for v10 is dropped
-     */
-    protected StreamFactoryInterface $streamFactory;
-
 
     /**
      * @var \Madj2k\CopyrightGuardian\Domain\Repository\MediaSourceRepository|null
@@ -60,28 +94,6 @@ class MediaSourceController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function injectMediaSourceRepository(MediaSourceRepository $mediaSourceRepository)
     {
         $this->mediaSourceRepository = $mediaSourceRepository;
-    }
-
-
-    /**
-     * @param \Psr\Http\Message\ResponseFactoryInterface $responseFactory
-     * @return void
-     * @todo can be removed when support for v10 is dropped
-     */
-    public function injectResponseFactoryForV10(ResponseFactoryInterface $responseFactory)
-    {
-        $this->responseFactory = $responseFactory;
-    }
-
-
-    /**
-     * @param \Psr\Http\Message\StreamFactoryInterface $streamFactory
-     * @return void
-     * @todo can be removed when support for v10 is dropped
-     */
-    public function injectStreamFactoryForV10(StreamFactoryInterface $streamFactory)
-    {
-        $this->streamFactory = $streamFactory;
     }
 
 
