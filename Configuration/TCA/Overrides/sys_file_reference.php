@@ -14,16 +14,25 @@ call_user_func(
                     'config' => [
                         'type' => 'check',
                         'default' => 0,
-                        'items' => [
-                            '1' => [
-                                '0' => 'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:sys_file_reference.tx_copyrightguardian_images_no_copyright.I.disabled'
-                            ],
-                        ],
+                         // @todo can be completely removed if support for v11 is dropped
+                        'items' =>  ($version <= 11 ?
+                            [
+                                [
+                                    'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:sys_file_reference.tx_copyrightguardian_images_no_copyright.I.disabled',
+                                    '0'
+                                ],
+                            ]:
+                            [
+                                [
+                                    'label' => 'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:sys_file_reference.tx_copyrightguardian_images_no_copyright.I.disabled',
+                                    'value' => '0'
+                                ]
+                            ]
+                        ),
                     ],
                 ],
             ]
         );
-
 
         // Add fields
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(

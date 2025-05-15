@@ -1,7 +1,11 @@
 <?php
 defined('TYPO3') or die('Access denied.');
+
 call_user_func(
     function (string $extKey) {
+
+        $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+        $version = $typo3Version->getMajorVersion();
 
         $tempColumnsMedia = [
             'columns' => [
@@ -26,9 +30,18 @@ call_user_func(
                         'minitems' => 0,
                         'maxitems' => 1,
                         'default' => 0,
-                        'items' => [
-                            ['---', '0'],
-                        ],
+                        /** @todo can be completely removed if support for v11 is dropped */
+                        'items' =>  ($version <= 11 ?
+                            [
+                                ['---', '0'],
+                            ]:
+                            [
+                                [
+                                    'label' => '---',
+                                    'value' => '0'
+                                ]
+                            ]
+                        ),
                     ],
                 ],
             ],

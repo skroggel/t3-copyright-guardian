@@ -111,9 +111,10 @@ class MediaSourceController extends AbstractMediaSourceController
      * Returns a response object with either the given html string or the current rendered view as content.
      *
      * @param string|null $html
+     * @return ResponseInterface
      * @todo can be removed when support for v10 is dropped
      */
-    protected function htmlResponse(string $html = null): ResponseInterface
+    protected function htmlResponse(?string $html = null): ResponseInterface
     {
         $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
         if ($typo3Version->getMajorVersion() < 11) {
