@@ -44,6 +44,9 @@
 			<trans-unit id="plugin.mediaSource.title" approved="yes">
 				<source>Media Source</source>
 			</trans-unit>
+			<trans-unit id="plugin.mediaSource.description" approved="yes">
+				<source>Media sources and copyright hints as list.</source>
+			</trans-unit>
 
 
             <!-- Flexform -->
