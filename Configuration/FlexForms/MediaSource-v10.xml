@@ -1,0 +1,29 @@
+<T3DataStructure>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:flexform.mediasource.function.headline</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<switchableControllerActions>
+						<TCEforms>
+							<label>LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:flexform.mediasource.function.select</label>
+							<config>
+								<type>select</type>
+                                <renderType>selectSingle</renderType>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:flexform.mediasource.function.select.I.list</numIndex>
+										<numIndex index="1">MediaSource->list</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</switchableControllerActions>
+				</el>
+			</ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure>

@@ -1,11 +1,111 @@
 <?php
+$typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+$version = $typo3Version->getMajorVersion();
+
+/** @todo can be completely removed if support for v12 is dropped */
+$additionalFieldDefinitions = [];
+if ($version <= 12) {
+    $additionalFieldDefinitions = [
+        'sys_language_uid' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'sys_language',
+                'foreign_table_where' => 'ORDER BY sys_language.title',
+                'items' => [
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0],
+                ],
+            ]
+        ],
+        'l10n_parent' => [
+            'displayCond' => 'FIELD:sys_language_uid:>:0',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['', 0],
+                ],
+                'foreign_table' => 'tx_copyrightguardian_domain_model_mediasource',
+                'foreign_table_where' => 'AND tx_copyrightguardian_domain_model_mediasource.pid=###CURRENT_PID### AND tx_copyrightguardian_domain_model_mediasource.sys_language_uid IN (-1,0)',
+            ],
+        ],
+        'l10n_diffsource' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'hidden' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
+        'starttime' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
+            /** @todo can be completely removed if support for v11 is dropped */
+            'config' => ($version < 12 ?
+                [
+                    'type' => 'input',
+                    'renderType' => 'inputDateTime',
+                    'size' => 13,
+                    'eval' => 'datetime',
+                    'checkbox' => 0,
+                    'default' => 0,
+                    'range' => [
+                        'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                    ],
+                    'behaviour' => [
+                        'allowLanguageSynchronization' => true
+                    ]
+                ]:
+                [
+                    'type' => 'datetime',
+                    'format' => 'date',
+                    'default' => 0,
+                ]
+            )
+        ],
+        'endtime' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
+            /** @todo can be completely removed if support for v11 is dropped */
+            'config' => ($version < 12 ?
+                [
+                    'type' => 'input',
+                    'renderType' => 'inputDateTime',
+                    'size' => 13,
+                    'eval' => 'datetime',
+                    'checkbox' => 0,
+                    'default' => 0,
+                    'range' => [
+                        'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                    ],
+                    'behaviour' => [
+                        'allowLanguageSynchronization' => true
+                    ]
+                ]:
+                [
+                    'type' => 'datetime',
+                    'format' => 'date',
+                    'default' => 0,
+                ]
+            )
+        ],
+    ];
+}
+
 return [
 	'ctrl' => [
 		'title'	=> 'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:tx_copyrightguardian_domain_model_mediasource',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'cruser_id' => 'cruser_id',
 		'dividers2tabs' => true,
 		'default_sortby' => 'ORDER BY internal DESC, name ASC',
 		'versioningWS' => true,
@@ -27,41 +127,7 @@ return [
 	'palettes' => [
 		'1' => ['showitem' => ''],
 	],
-	'columns' => [
-
-		'sys_language_uid' => [
-			'exclude' => 0,
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'foreign_table' => 'sys_language',
-				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => [
-					['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
-					['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0],
-				],
-			],
-		],
-		'l10n_parent' => [
-			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'items' => [
-					['', 0],
-				],
-				'foreign_table' => 'tx_copyrightguardian_domain_model_mediasource',
-				'foreign_table_where' => 'AND tx_copyrightguardian_domain_model_mediasource.pid=###CURRENT_PID### AND tx_copyrightguardian_domain_model_mediasource.sys_language_uid IN (-1,0)',
-			],
-		],
-		'l10n_diffsource' => [
-			'config' => [
-				'type' => 'passthrough',
-			],
-		],
-
+	'columns' => array_merge($additionalFieldDefinitions, [
 		't3ver_label' => [
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.versionLabel',
 			'config' => [
@@ -70,82 +136,53 @@ return [
 				'max' => 255,
 			],
 		],
-
-		'hidden' => [
-			'exclude' => 0,
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
-			'config' => [
-				'type' => 'check',
-			],
-		],
-		'starttime' => [
-			'exclude' => 0,
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
-			'config' => [
-				'type' => 'input',
-                'renderType' => 'inputDateTime',
-				'size' => 13,
-				'eval' => 'datetime',
-				'checkbox' => 0,
-				'default' => 0,
-				'range' => [
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
-				],
-                'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
-			],
-		],
-		'endtime' => [
-			'exclude' => 0,
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
-			'config' => [
-				'type' => 'input',
-                'renderType' => 'inputDateTime',
-				'size' => 13,
-				'eval' => 'datetime',
-				'checkbox' => 0,
-				'default' => 0,
-				'range' => [
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
-				],
-                'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
-			],
-		],
-
 		'name' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:tx_copyrightguardian_domain_model_mediasource.name',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
-				'eval' => 'trim,required'
+                /** @todo can be completely removed if support for v12 is dropped */
+				'eval' => ($version <= 12 ? 'trim,required' : 'trim'),
+                'required' => true
 			],
 		],
-
 		'url' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:tx_copyrightguardian_domain_model_mediasource.url',
-			'config' => [
-				'type' => 'input',
-                'renderType' => 'inputLink',
-			],
+            /** @todo can be completely removed if support for v11 is dropped */
+            'config' => ($version <= 11 ?
+                [
+                    'type' => 'input',
+                    'renderType' => 'inputLink',
+			    ]:
+                [
+                    'type' => 'link',
+                ]
+            ),
 		],
-
         'internal' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:tx_copyrightguardian_domain_model_mediasource.internal',
             'config' => [
                 'type' => 'check',
                 'default' => 0,
-                'items' => [
-                    '1' => [
-                        '0' => 'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:tx_copyrightguardian_domain_model_mediasource.internal.I.disabled'
-                    ],
-                ],
+                /** @todo can be completely removed if support for v11 is dropped */
+                'items' => ($version <= 11 ?
+                    [
+                        '1' => [
+                            'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:tx_copyrightguardian_domain_model_mediasource.internal.I.disabled',
+                            0
+                        ],
+                    ]:
+                    [
+                        [
+                            'label' => 'LLL:EXT:copyright_guardian/Resources/Private/Language/locallang_db.xlf:tx_copyrightguardian_domain_model_mediasource.internal.I.disabled',
+                            'value' => '0'
+                        ]
+                    ]
+                ),
             ],
         ],
-	],
+	]),
 ];

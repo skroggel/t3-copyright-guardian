@@ -8,6 +8,7 @@ call_user_func(
 
             $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
             $version = $typo3Version->getMajorVersion();
+
             /** @todo remove this if support for v10 is dropped */
             if ($version == 10) {
 
@@ -28,6 +29,7 @@ call_user_func(
                 );
 
             } else {
+
                 // register normal plugin
                 $pluginSignature = \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
                     $extKey,
@@ -37,11 +39,23 @@ call_user_func(
                 );
 
                 // add flexform to plugin
-                $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+                $flexFormFile = 'FILE:EXT:' . $extKey . '/Configuration/FlexForms/' .
+                    \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($pluginName) . '.xml';
+
+                /** @todo remove this if support for v12 is dropped */
+                if ($version <= 12) {
+                    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+                }
+
+                /** @todo remove this if support for v11 is dropped */
+                if ($version <= 11) {
+                    $flexFormFile = 'FILE:EXT:' . $extKey . '/Configuration/FlexForms/' .
+                        \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($pluginName) . '-v10.xml';
+                }
+
                 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                     '*', // wildcard when using third parameter, else use pluginSignature
-                    'FILE:EXT:' . $extKey . '/Configuration/FlexForms/' .
-                    \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($pluginName) . '.xml',
+                    $flexFormFile,
                     $pluginSignature // third parameter adds flexform to content-element below, too!
                 );
 
@@ -61,19 +75,19 @@ call_user_func(
                 // define TCA-fields
                 // $GLOBALS['TCA']['tt_content']['types'][$pluginSignature] = $GLOBALS['TCA']['tt_content']['types']['list'];
                 $GLOBALS['TCA']['tt_content']['types'][$pluginSignature]['showitem'] = '
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
-                    --palette--;;general,
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.plugin,
-                    pi_flexform,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-                    --palette--;;language,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
-                    --palette--;;hidden,
-                    --palette--;;access,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:notes,
-                    rowDescription,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,
-            ';
+                    --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
+                        --palette--;;general,
+                    --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.plugin,
+                        pi_flexform,
+                    --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+                        --palette--;;language,
+                    --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
+                        --palette--;;hidden,
+                        --palette--;;access,
+                    --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:notes,
+                        rowDescription,
+                    --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,
+                ';
             }
         }
     },
