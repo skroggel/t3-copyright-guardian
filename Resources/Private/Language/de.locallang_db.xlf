@@ -52,6 +52,10 @@
 				<source>Media Source</source>
 				<target>Medienquelle</target>
 			</trans-unit>
+			<trans-unit id="plugin.mediaSource.description" approved="yes">
+				<source>Media sources and copyright hints as list.</source>
+				<target>Bildquellen und Copyright-Hinweise als Liste.</target>
+			</trans-unit>
 
 
             <!-- Flexform -->
