@@ -57,7 +57,7 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
             LocalizationUtility::translate(
                 'mailService.backendUser.subject.incompleteFiles',
                 'copyright_guardian',
-                null,
+                [count($files)],
                 'de'
             )
         );

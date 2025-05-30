@@ -1,4 +1,7 @@
-{namespace postmaster=Madj2k\Postmaster\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:postmaster="http://typo3.org/ns/Madj2k/Postmaster/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
 <f:layout name="Email/{mailType}" />
 
 <!-- PLAINTEXT -->
@@ -12,12 +15,24 @@
 
 <!-- HTML -->
 <f:section name="Html">
-    <h1><postmaster:email.translate key="templates_email_backendUser_closingDay.headline" languageKey="{language}" extensionName="rkwCompetition" arguments="{0 : fullName}" /></h1>
-    <p><postmaster:email.translate key="templates_email_backendUser_closingDay.text1" languageKey="{language}" extensionName="rkwCompetition" /></p>
-    <p class="important"><postmaster:email.translate key="templates_email_backendUser_closingDay.text2" languageKey="{language}" extensionName="rkwCompetition" /></p>
-    <ul>
+    <f:variable name="fileCount" value="{files -> f:count()}" />
+    <p><postmaster:email.translate key="sys_file_metadata.incompleteFilesCount" arguments="{0: fileCount}" languageKey="de" extensionName="CopyrightGuardian"/></p>
+    <table class="colored-table">
+        <tr>
+            <td>UID</td>
+            <td><postmaster:email.translate key="sys_file_metadata.identifier" languageKey="de" extensionName="CopyrightGuardian"/></td>
+            <td><postmaster:email.translate key="sys_file_metadata.alternativetext" languageKey="de" extensionName="CopyrightGuardian"/></td>
+            <td><postmaster:email.translate key="sys_file_metadata.tx_copyrightguardian_creator" languageKey="de" extensionName="CopyrightGuardian"/></td>
+            <td><postmaster:email.translate key="sys_file_metadata.tx_copyrightguardian_source" languageKey="de" extensionName="CopyrightGuardian"/></td>
+        </tr>
         <f:for each="{files}" as="file" iteration="iteration">
-            <li>{file.file_uid} - {file.identifier}</li>
-        </f:for>
-    </ul>
+            <tr>
+                <td>{file.file_uid}</td>
+                <td>{file.identifier}</td>
+                <td>{file.alternative}</td>
+                <td>{file.tx_copyrightguardian_creator}</td>
+                <td>{file.tx_copyrightguardian_source}</td>
+            </tr>
+        </f:for>        
+    </table>
 </f:section>

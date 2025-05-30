@@ -72,7 +72,7 @@ class FileMetadataRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder
-            ->select('f.uid AS file_uid', 'f.identifier', 'm.alternative', 'm.tx_copyrightguardian_creator', 'm.tx_copyrightguardian_source')
+            ->select('f.uid AS file_uid', 'f.identifier', 'm.alternative', 'm.tx_copyrightguardian_creator', 's.name AS tx_copyrightguardian_source')
             ->from('sys_file', 'f')
             ->leftJoin(
                 'f',
@@ -85,6 +85,12 @@ class FileMetadataRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 'sys_file_reference',
                 'r',
                 'f.uid = r.uid_local'
+            )
+            ->leftJoin(
+                'm',
+                'tx_copyrightguardian_domain_model_mediasource',
+                's',
+                'm.tx_copyrightguardian_source = s.uid'
             )
             ->where(
                 $queryBuilder->expr()->$andCommand(

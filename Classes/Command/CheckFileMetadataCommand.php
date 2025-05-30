@@ -91,21 +91,26 @@ class CheckFileMetadataCommand extends Command
 
         $files = $this->fileMetadataRepository->findFilesWithIncompleteMetadataInRootline($rootPageUid);
 
-        //  @todo: Übersetzung / Translation
         if (empty($files)) {
-            $io->success('Es wurden keine passenden Datensätze gefunden.');
+            $io->success('No records with missing meta data found.');
         } else {
-            $io->title('Gefundene Dateien mit unvollständigen Metadaten');
+            $io->title('Files with incomplete meta data');
 
             $io->table(
-                ['File UID', 'Identifier', 'Alternative', 'Creator', 'Source'], // Tabellenkopf
+                [
+                    'uid',
+                    'identifier',
+                    'alternative',
+                    'tx_copyrightguardian_creator',
+                    'tx_copyrightguardian_source'
+                ],
                 array_map(static function ($file) {
                     return [
                         $file['file_uid'],
                         $file['identifier'],
-                        $file['alternative'] ?? '(empty)',
-                        $file['tx_copyrightguardian_creator'] ?? '(empty)',
-                        $file['tx_copyrightguardian_source'] ?? '0',
+                        $file['alternative'] ?? '',
+                        $file['tx_copyrightguardian_creator'] ?? '',
+                        $file['tx_copyrightguardian_source'] ?? '',
                     ];
                 }, $files)
             );
@@ -117,7 +122,7 @@ class CheckFileMetadataCommand extends Command
                 $mailService->incompleteFilesMail($email, $files);
             }
 
-            $io->success(sprintf('%d Dateien gefunden.', count($files)));
+            $io->success(sprintf('%d files found.', count($files)));
         }
 
         return Command::SUCCESS;

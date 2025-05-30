@@ -13,8 +13,23 @@
             <!-- Templates/Email/IncompleteFiles    			         -->
             <!-- =================================================== -->
   			<trans-unit id="mailService.backendUser.subject.incompleteFiles">
-                <source>Incomplete media files</source>
+                <source>%s incomplete media files found</source>
             </trans-unit>
+			<trans-unit id="sys_file_metadata.incompleteFilesCount" approved="yes">
+				<source>%s incomplete files have been found</source>
+			</trans-unit>
+			<trans-unit id="sys_file_metadata.identifier" approved="yes">
+				<source>Identifier</source>
+			</trans-unit>
+			<trans-unit id="sys_file_metadata.alternativetext" approved="yes">
+				<source>Alternative text</source>
+			</trans-unit>
+			<trans-unit id="sys_file_metadata.tx_copyrightguardian_creator" approved="yes">
+				<source>Creator</source>
+			</trans-unit>
+			<trans-unit id="sys_file_metadata.tx_copyrightguardian_source" approved="yes">
+				<source>Source</source>
+			</trans-unit>
         </body>
 	</file>
 </xliff>
